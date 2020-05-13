@@ -1,0 +1,40 @@
+ALTER Function [dbo].[Cls0](@target_str varchar(100),@type int)
+returns varchar(100)
+BEGIN
+
+--declare @target_str varchar(100)
+--declare @Type int
+
+--set @Type=2
+declare @pos int
+--set @target_str='00051.102300'
+
+IF @Type=0
+begin
+set @pos=patindex('%[^0]%.%',@target_str)
+set  @pos=@pos-1
+set @target_str=Right(@target_str,len(@target_str) -@pos)
+--return @target_str
+end
+Else IF @Type=1
+begin
+set @pos=patindex('%[^0]%.%',reverse(@target_str))
+set  @pos=@pos-1
+set @target_str=Left(@target_str,len(@target_str)-@pos)
+--return @target_str
+end
+Else IF @Type=2
+begin
+set @pos=patindex('%[^0]%.%',@target_str)
+set  @pos=@pos-1
+set @target_str=Right(@target_str,len(@target_str) -@pos)
+
+
+set @pos=patindex('%[^0]%.%',reverse(@target_str))
+set  @pos=@pos-1
+set @target_str=Left(@target_str,len(@target_str) -@pos)
+--return @target_str
+end
+return @target_str
+
+END
